@@ -1,0 +1,173 @@
+SELECT *
+FROM city;
+
+SELECT * 
+FROM address;
+
+CREATE TABLE IF NOT EXISTS customer(
+    customer_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(45),
+    last_name VARCHAR(45),
+    email VARCHAR(45),
+    phone VARCHAR(20),
+    address_id INTEGER NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES address(address_id)
+);
+
+INSERT INTO customer (
+    first_name,
+    last_name,
+    email,
+    phone,
+    address_id
+) VALUES(
+    'Terell',
+    'Mckeney',
+    'TT32_coder@gmail.com',
+    '312-589-4448',
+    3
+);
+
+SELECT *
+FROM customer
+
+CREATE TABLE IF NOT EXISTS car (
+    car_id SERIAL PRIMARY KEY,
+    make VARCHAR(15),
+    model VARCHAR(15),
+    year_ DATE,
+    used_or_new BOOLEAN NOT NULL 
+);
+
+SELECT *
+FROM car;
+
+
+CREATE TABLE IF NOT EXISTS parts_inventory(
+    part_id SERIAL PRIMARY KEY,
+    part_name VARCHAR(45),
+    amount NUMERIC(8,2)
+);
+
+INSERT INTO parts_inventory(
+    part_name,
+    amount
+) VALUES(
+    'Spark plug',
+    '8.99'
+);
+
+SELECT *
+FROM parts_inventory;
+
+INSERT INTO car(
+    make,
+    model,
+    year_,
+    used_or_new
+) VALUES (
+    'Toyota',
+    'Tundra',
+    '2021-12-11',
+    false
+);
+
+SELECT *
+FROM car;
+
+CREATE TABLE IF NOT EXISTS staff(
+    staff_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(45),
+    last_name VARCHAR(45),
+    email VARCHAR(45),
+    password_ VARCHAR(45)
+);
+
+INSERT INTO staff(
+    first_name,
+    last_name,
+    email,
+    password_
+) VALUES(
+    'Billy',
+    'Smith',
+    'smith35@gmail.com',
+    'luckyman77'
+);
+
+SELECT *
+FROM staff;
+
+CREATE TABLE IF NOT EXISTS invoice(
+    invoice_id SERIAL PRIMARY KEY,
+    amount NUMERIC(8,2),
+    date DATE,
+    car_id INTEGER NOT NULL,
+    FOREIGN KEY (car_id) REFERENCES car(car_id),
+    customer_id INTEGER NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    staff_id INTEGER NOT NULL,
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+);
+
+INSERT INTO invoice(
+    amount,
+    date,
+    car_id,
+    customer_id,
+    staff_id
+) VALUES(
+    34000.00,
+    '2022-06-27',
+    1,
+    4,
+    1 
+);
+
+CREATE TABLE parts_log(
+    parts_log_id INTEGER PRIMARY KEY,
+    part_id INTEGER,
+    FOREIGN KEY (part_id) REFERENCES parts_inventory(part_id),
+    mechanic_id INTEGER NOT NULL,
+    FOREIGN KEY (mechanic_id) REFERENCES staff(staff_id),
+    invoice_id INTEGER NOT NULL,
+    FOREIGN KEY (invoice_id) REFERENCES invoice(invoice_id)
+);
+
+INSERT INTO parts_log(
+    part_id,
+    mechanic_id,
+    invoice_id
+) VALUES (
+    1,
+    2,
+    2
+);
+
+SELECT *
+FROM parts_log;
+
+
+
+
+CREATE TABLE IF NOT EXISTS parts_log(
+    parts_log_id INTEGER PRIMARY KEY,
+    part_id INTEGER NOT NULL,
+    FOREIGN KEY (part_id) REFERENCES parts_inventory(part_id),
+    mechanic_id INTEGER NOT NULL,
+    FOREIGN KEY(mechanic_id) REFERENCES staff(staff_id),
+    
+)
+
+SELECT *
+FROM car;
+
+
+
+
+
+
+
+
+
+
